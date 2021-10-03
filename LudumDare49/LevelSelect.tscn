@@ -1,0 +1,251 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://New Project - 2021-10-02T215727.070.png" type="Texture" id=1]
+[ext_resource path="res://New Project - 2021-10-02T215819.464.png" type="Texture" id=2]
+[ext_resource path="res://New Project - 2021-10-02T220315.287.png" type="Texture" id=3]
+[ext_resource path="res://New Project - 2021-10-02T220342.639.png" type="Texture" id=4]
+[ext_resource path="res://New Project - 2021-10-02T220743.454.png" type="Texture" id=5]
+[ext_resource path="res://New Project - 2021-10-02T220805.335.png" type="Texture" id=6]
+[ext_resource path="res://New Project - 2021-10-02T222221.214.png" type="Texture" id=7]
+[ext_resource path="res://New Project - 2021-10-02T221841.997.png" type="Texture" id=8]
+[ext_resource path="res://LevelSelect.gd" type="Script" id=9]
+[ext_resource path="res://Sprites/WhiteBackground.png" type="Texture" id=10]
+[ext_resource path="res://Music.gd" type="Script" id=11]
+[ext_resource path="res://MainMenuMusic.wav" type="AudioStream" id=12]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Start"
+length = 3.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Easy:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 1.8, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16, 328 ), Vector2( -16, -8 ), Vector2( -16, 8 ), Vector2( -16, -8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Normal:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 2.3, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 192, 328 ), Vector2( 192, -8 ), Vector2( 192, 0 ), Vector2( 192, -8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hard:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 448, 328 ), Vector2( 448, -24 ), Vector2( 448, -8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.5, 3, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 320, 416 ), Vector2( 320, 240 ), Vector2( 320, 256 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2.3, 3, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 312, 384 ), Vector2( 312, 392 ), Vector2( 312, 304 ), Vector2( 312, 312 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "New Anim"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "New Anim"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "FadeEasy"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "FadeHard"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[node name="LevelSelect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 360.0
+color = Color( 0.223529, 0.160784, 0.27451, 1 )
+
+[node name="Easy" type="TextureButton" parent="."]
+margin_left = -16.0
+margin_top = 328.0
+margin_right = 187.0
+margin_bottom = 453.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 112, 64 )
+texture_normal = ExtResource( 1 )
+texture_hover = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Normal" type="TextureButton" parent="."]
+margin_left = 192.0
+margin_top = 328.0
+margin_right = 461.0
+margin_bottom = 453.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 128, 64 )
+texture_normal = ExtResource( 3 )
+texture_hover = ExtResource( 4 )
+
+[node name="Hard" type="TextureButton" parent="."]
+margin_left = 448.0
+margin_top = 328.0
+margin_right = 636.0
+margin_bottom = 453.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 94, 64 )
+texture_normal = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Start"
+playback_speed = 3.0
+anims/Start = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 320, 392 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+autoplay = "New Anim"
+"anims/New Anim" = SubResource( 2 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 312, 384 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2"]
+autoplay = "New Anim"
+"anims/New Anim" = SubResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer"]
+modulate = Color( 0, 0, 0, 0 )
+position = Vector2( 301.5, 208.5 )
+scale = Vector2( 3.57692, 14.9 )
+texture = ExtResource( 10 )
+
+[node name="Fade" type="AnimationPlayer" parent="."]
+anims/Fade = SubResource( 4 )
+anims/FadeEasy = SubResource( 5 )
+anims/FadeHard = SubResource( 6 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+script = ExtResource( 11 )
+
+[connection signal="pressed" from="Easy" to="." method="_on_Easy_pressed"]
+[connection signal="pressed" from="Normal" to="." method="_on_Normal_pressed"]
+[connection signal="pressed" from="Hard" to="." method="_on_Hard_pressed"]
+[connection signal="animation_finished" from="Fade" to="." method="_on_Fade_animation_finished"]

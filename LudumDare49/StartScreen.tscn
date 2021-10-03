@@ -1,0 +1,135 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/WhiteBackground.png" type="Texture" id=1]
+[ext_resource path="res://Font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://StartScreen.gd" type="Script" id=3]
+[ext_resource path="res://Opas.shader" type="Shader" id=4]
+[ext_resource path="res://blip.wav" type="AudioStream" id=5]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+shader_param/screen_size = Vector2( 320, 180 )
+shader_param/show_curvature = true
+shader_param/curvature_x_amount = 6.0
+shader_param/curvature_y_amount = 4.0
+shader_param/corner_color = Color( 0, 0, 0, 1 )
+shader_param/show_vignette = true
+shader_param/vignette_opacity = 0.2
+shader_param/show_horizontal_scan_lines = true
+shader_param/horizontal_scan_lines_amount = 0.0
+shader_param/horizontal_scan_lines_opacity = 0.0
+shader_param/show_vertical_scan_lines = false
+shader_param/vertical_scan_lines_amount = 320.0
+shader_param/vertical_scan_lines_opacity = 1.0
+shader_param/boost = 1.2
+shader_param/aberration_amount = 0.0
+
+[sub_resource type="Environment" id=2]
+background_mode = 4
+tonemap_mode = 1
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 360.0
+color = Color( 0.0196078, 0.0352941, 0.0784314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer"]
+material = SubResource( 1 )
+position = Vector2( 320, 180.5 )
+scale = Vector2( 2.73504, 11.9667 )
+texture = ExtResource( 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="Text" type="Control" parent="."]
+margin_right = 640.0
+margin_bottom = 40.0
+
+[node name="Text1" type="RichTextLabel" parent="Text"]
+visible = false
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 6176.0
+margin_bottom = 328.0
+rect_scale = Vector2( 0.1, 0.1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "Totally Normal Pong - Made in unstable engine v1.2.69"
+text = "Totally Normal Pong - Made in unstable engine v1.2.69"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="RichTextLabel" parent="Text"]
+visible = false
+margin_left = 16.0
+margin_top = 48.0
+margin_right = 3136.0
+margin_bottom = 368.0
+rect_scale = Vector2( 0.1, 0.1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "Starting Game..."
+text = "Starting Game..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text3" type="RichTextLabel" parent="Text"]
+visible = false
+margin_left = 16.0
+margin_top = 88.0
+margin_right = 3696.0
+margin_bottom = 408.0
+rect_scale = Vector2( 0.1, 0.1 )
+custom_fonts/normal_font = ExtResource( 2 )
+custom_colors/default_color = Color( 1, 0.266667, 0.266667, 1 )
+bbcode_enabled = true
+bbcode_text = "Error loading main.pong at Game.logic"
+text = "Error loading main.pong at Game.logic"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text4" type="RichTextLabel" parent="Text"]
+visible = false
+margin_left = 16.0
+margin_top = 128.0
+margin_right = 3696.0
+margin_bottom = 448.0
+rect_scale = Vector2( 0.1, 0.1 )
+custom_fonts/normal_font = ExtResource( 2 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+bbcode_enabled = true
+bbcode_text = "Proceeding anyays..."
+text = "Proceeding anyays..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Fish" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Blip" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -10.0
+pitch_scale = 0.9
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Fish" to="." method="_on_Fish_timeout"]

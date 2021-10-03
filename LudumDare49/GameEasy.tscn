@@ -1,0 +1,388 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Opponent.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Game.gd" type="Script" id=4]
+[ext_resource path="res://Font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Sprites/Dividers.png" type="Texture" id=6]
+[ext_resource path="res://ScreenShake.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Opas.shader" type="Shader" id=8]
+[ext_resource path="res://swap.wav" type="AudioStream" id=9]
+[ext_resource path="res://score.wav" type="AudioStream" id=10]
+[ext_resource path="res://Music.gd" type="Script" id=11]
+[ext_resource path="res://Unnamed (9).wav" type="AudioStream" id=12]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Size"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.5 ), Vector2( 1, 1 ), Vector2( 1, 1.7 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Spin"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 90.0, 180.0, 270.0, 360.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8, 184 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 336, 8 )
+
+[sub_resource type="Environment" id=5]
+background_mode = 4
+tonemap_mode = 1
+glow_bloom = 0.07
+glow_blend_mode = 0
+glow_bicubic_upscale = true
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 8 )
+shader_param/screen_size = Vector2( 320, 180 )
+shader_param/show_curvature = true
+shader_param/curvature_x_amount = 8.0
+shader_param/curvature_y_amount = 8.0
+shader_param/corner_color = Color( 0, 0, 0, 1 )
+shader_param/show_vignette = true
+shader_param/vignette_opacity = 0.2
+shader_param/show_horizontal_scan_lines = true
+shader_param/horizontal_scan_lines_amount = 0.0
+shader_param/horizontal_scan_lines_opacity = 0.0
+shader_param/show_vertical_scan_lines = false
+shader_param/vertical_scan_lines_amount = 320.0
+shader_param/vertical_scan_lines_opacity = 1.0
+shader_param/boost = 1.2
+shader_param/aberration_amount = 0.42
+
+[sub_resource type="Animation" id=7]
+resource_name = "Flicker"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/PlayScore:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/OppScore:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true ]
+}
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_left = -56.0
+margin_top = -48.0
+margin_right = 704.0
+margin_bottom = 408.0
+color = Color( 0.223529, 0.160784, 0.27451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 304.0
+margin_right = 336.0
+margin_bottom = 356.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 32.0
+margin_bottom = 68.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 32.0
+margin_bottom = 104.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer"]
+margin_top = 108.0
+margin_right = 32.0
+margin_bottom = 140.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer"]
+margin_top = 144.0
+margin_right = 32.0
+margin_bottom = 176.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer"]
+margin_top = 180.0
+margin_right = 32.0
+margin_bottom = 212.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer"]
+margin_top = 216.0
+margin_right = 32.0
+margin_bottom = 248.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer"]
+margin_top = 252.0
+margin_right = 32.0
+margin_bottom = 284.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect9" type="TextureRect" parent="VBoxContainer"]
+margin_top = 288.0
+margin_right = 32.0
+margin_bottom = 320.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect10" type="TextureRect" parent="VBoxContainer"]
+margin_top = 324.0
+margin_right = 32.0
+margin_bottom = 356.0
+texture = ExtResource( 6 )
+
+[node name="UI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayScore" type="RichTextLabel" parent="UI"]
+margin_left = 216.0
+margin_top = -16.0
+margin_right = 512.0
+margin_bottom = 280.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = ExtResource( 5 )
+custom_colors/default_color = Color( 0.694118, 0.678431, 0.705882, 1 )
+bbcode_enabled = true
+bbcode_text = " 0"
+text = " 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OppScore" type="RichTextLabel" parent="UI"]
+margin_left = 304.0
+margin_top = -16.0
+margin_right = 600.0
+margin_bottom = 280.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = ExtResource( 5 )
+custom_colors/default_color = Color( 0.694118, 0.678431, 0.705882, 1 )
+bbcode_enabled = true
+bbcode_text = " 0"
+text = " 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+visible = false
+margin_top = 96.0
+margin_right = 1280.0
+margin_bottom = 496.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = ExtResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[center]You Scored!"
+text = "You Scored!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Victory" type="RichTextLabel" parent="UI"]
+visible = false
+margin_top = 96.0
+margin_right = 1280.0
+margin_bottom = 496.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = ExtResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[center]Victory!"
+text = "Victory!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Defeat" type="RichTextLabel" parent="UI"]
+visible = false
+margin_top = 96.0
+margin_right = 1280.0
+margin_bottom = 496.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = ExtResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[center]Defeat!"
+text = "Defeat!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="UI"]
+visible = false
+margin_top = 96.0
+margin_right = 1280.0
+margin_bottom = 496.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = ExtResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[center]Opp Scored!"
+text = "Opp Scored!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 16, 152 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+anims/Size = SubResource( 1 )
+anims/Spin = SubResource( 2 )
+
+[node name="Opponent" parent="." instance=ExtResource( 2 )]
+position = Vector2( 624, 168 )
+speed = 125
+
+[node name="Ball" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 180 )
+
+[node name="Goals2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Goals2"]
+position = Vector2( -8, 176 )
+shape = SubResource( 3 )
+
+[node name="Goals" type="Area2D" parent="."]
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Goals"]
+position = Vector2( 648, 176 )
+shape = SubResource( 3 )
+
+[node name="Boundries" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundries"]
+position = Vector2( 320, -8 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundries"]
+position = Vector2( 320, 360 )
+shape = SubResource( 4 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 320, 180 )
+current = true
+
+[node name="ScreenShake" parent="Camera2D" instance=ExtResource( 7 )]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0.364706 )
+material = SubResource( 6 )
+margin_right = 640.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Flip" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Flicker = SubResource( 7 )
+
+[node name="SwapSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -5.0
+
+[node name="ScoreSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -10.0
+
+[node name="FlipBodies" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="End" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -5.0
+script = ExtResource( 11 )
+
+[connection signal="collided" from="Ball" to="Camera2D/ScreenShake" method="_on_Ball_collided"]
+[connection signal="body_entered" from="Goals2" to="." method="_on_Goals2_body_entered"]
+[connection signal="body_entered" from="Goals" to="." method="_on_Goals_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Flip" to="." method="_on_Flip_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="FlipBodies" to="." method="_on_FlipBodies_timeout"]
+[connection signal="timeout" from="End" to="." method="_on_End_timeout"]
